@@ -55,9 +55,9 @@ class MainActivity : AppCompatActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                       tv2.text = it
-                      tv2.append("\n压缩前文件大小=${FileUtils.getSize(result.filterNotNull().first().path)}")
-                      tv2.append("\n压缩后文件大小=${FileUtils.getSize(it)}")
-                      tv2.append("\n压缩耗时=${System.currentTimeMillis() - time}ms")
+                      tv2.append("\n\n压缩前文件大小=${FileUtils.getSize(result.filterNotNull().first().path)}")
+                      tv2.append("\n\n压缩后文件大小=${FileUtils.getSize(it)}")
+                      tv2.append("\n\n压缩耗时=${(System.currentTimeMillis() - time) / 1000}秒")
                       tv1.alpha = 1f
                       tv1.isClickable = true
                     }, {
