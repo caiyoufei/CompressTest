@@ -1,7 +1,5 @@
 package com.iceteck.silicompressorr
 
-import android.util.Log
-
 /**
  * Description:
  * @author: caiyoufei
@@ -21,13 +19,16 @@ open class CompressCall private constructor() {
 
   //防止回调太频繁
   private var lastProgress = 0f
+  //临时变量
+  private var tempProgress = 0f
 
   //更新压缩进度
   fun updateCompressProgress(originFilePath: String, progress: Float) {
-    if (progress - lastProgress > 1) {
-      lastProgress = ((progress * 100).toInt()) / 100f
+    tempProgress = ((progress * 10).toInt()) / 10f//保留一位小数
+    if (lastProgress != tempProgress) {
+      lastProgress = tempProgress
       // Log.e("CASE", "压缩进度=$lastProgress")
-      progressCall?.invoke(originFilePath, Math.min(lastProgress, 99.99f))
+      progressCall?.invoke(originFilePath, Math.min(lastProgress, 99.9f))
     }
   }
 
@@ -35,5 +36,6 @@ open class CompressCall private constructor() {
   fun release() {
     progressCall = null
     lastProgress = 0f
+    tempProgress = 0f
   }
 }
