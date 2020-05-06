@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import cc.ab.base.widget.engine.PicSelEngine
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.PathUtils
+import com.caitong.compresstest.GlideEngine.createGlideEngine
 import com.iceteck.silicompressorr.CompressCall
 import com.iceteck.silicompressorr.SiliCompressor
 import com.luck.picture.lib.PictureSelector
@@ -16,11 +18,11 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.tv1
-import kotlinx.android.synthetic.main.activity_main.tv2
+import kotlinx.android.synthetic.main.activity_test.tv1
+import kotlinx.android.synthetic.main.activity_test.tv2
 import java.io.File
 
-class MainActivity : AppCompatActivity() {
+class TestActivity : AppCompatActivity() {
   private lateinit var mContext: Context
   private var disposable: Disposable? = null
   private var time: Long = 0
@@ -29,11 +31,11 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     mContext = this
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
+    setContentView(R.layout.activity_test)
     tv1.setOnClickListener {
       PictureSelector.create(this)
         .openGallery(PictureMimeType.ofVideo())
-        .loadImageEngine(GlideEngine.createGlideEngine())
+        .loadImageEngine(PicSelEngine())
         .forResult(object : OnResultCallbackListener<LocalMedia?> {
           override fun onResult(result: List<LocalMedia?>) {
             // onResult Callback
